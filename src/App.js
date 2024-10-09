@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import axios from 'axios';
+import './App.css'; 
 
 function App() {
+  const [quote, setQuote] = useState('');
+  const [origin, setOrigin] = useState('');
+
+  const handler = async () => {
+    const options = {
+      method: 'GET',
+      url: 'https://quotes15.p.rapidapi.com/quotes/random/',
+      params: {
+        language_code: 'en',
+      },
+      headers: {
+        'x-rapidapi-key': '74716cc84fmsh577337fb589c0ddp1031eajsn38b33a156ac9',
+        'x-rapidapi-host': 'quotes15.p.rapidapi.com',
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      setQuote(response.data.content);
+      setOrigin(response.data.originator.name);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className="content">
+        <button onClick={handler} className="btn">
+          This will show quotes
+        </button>
+        <hr />
+        <p>{quote}</p>
+        <br/>
+        <p>- {origin} -</p>
+      </div>
     </div>
   );
 }
