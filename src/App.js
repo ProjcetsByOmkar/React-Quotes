@@ -14,7 +14,7 @@ function App() {
         language_code: 'en',
       },
       headers: {
-        'x-rapidapi-key': '74716cc84fmsh577337fb589c0ddp1031eajsn38b33a156ac9',
+        'x-rapidapi-key': 'API-KEY',
         'x-rapidapi-host': 'quotes15.p.rapidapi.com',
       },
     };
